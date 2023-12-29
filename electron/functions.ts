@@ -1,19 +1,17 @@
-import { ipcMain } from "electron";
-import { type responseType } from "../src/lib/types";
-export const response = <T>(props: responseType<T>) => {
-  if (props.event) {
-    props.event.reply("response", { status: props.status, data: props.data });
-  }
+import { FunctionMap } from "@/lib/types";
+
+/**
+ * @description Type Assertation is necessary for typescript to not give errors
+ */
+const functions: FunctionMap = {
+  test: (props) => {
+    return ("test" as string) + (props as string);
+  },
 };
-export const receive = () => {
-  if (ipcMain) {
-    ipcMain.on("receive", (event, args: unknown) => {
-      console.log(args);
-      response<{ data: string }>({
-        event,
-        status: "success",
-        data: { data: "Test" },
-      });
-    });
+
+export const run = (name: string, props?: unknown) => {
+  const func = functions[name];
+  if (func) {
+    return func(props);
   }
 };

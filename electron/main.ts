@@ -1,6 +1,6 @@
 import { app, BrowserWindow } from "electron";
 import path from "node:path";
-import { receive } from "./functions";
+import { receive } from "./utils";
 
 process.env.DIST = path.join(__dirname, "../dist");
 process.env.VITE_PUBLIC = app.isPackaged
