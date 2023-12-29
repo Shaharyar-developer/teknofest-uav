@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from "electron";
 import path from "node:path";
+import { receive } from "./functions";
 
 process.env.DIST = path.join(__dirname, "../dist");
 process.env.VITE_PUBLIC = app.isPackaged
@@ -41,5 +42,5 @@ app.on("activate", () => {
     createWindow();
   }
 });
-
+receive();
 app.whenReady().then(createWindow);
